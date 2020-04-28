@@ -1,0 +1,76 @@
+SHOW DATABASES;
+CREATE DATABASE APPLICATIONs;
+SHOW DATABASES;
+USE APPLICATIONs;
+CREATE TABLE CONTACTS (
+  No INT PRIMARY KEY AUTO_INCREMENT
+, Name VARCHAR(50) NOT NULL
+, Phone1 CHAR(15)
+, Phone2 CHAR(15)
+, Email VARCHAR(100)
+, Group_CONTACTS VARCHAR(100)
+, Address VARCHAR(150)
+, Department_Position VARCHAR(100)
+, Birthday date
+, Memo VARCHAR(255) DEFAULT ' ' NOT NULL
+);
+INSERT INTO CONTACTS
+(Name, Phone1, Phone2, Email, Group_CONTACTS, Address, Department_Position, Birthday)
+VALUES
+("김민찬",	"010-2345-6789", "02-123-1234", "mc.kim@google.com", "가족", "서울특별시 종로구", "가족", '1991-09-23'),
+("김영주",	"010-1234-5555", "02-444-5555", "yj.kim@google.com", "베프", "서울특별시 광진구", "친구", '1990-04-01'),
+("신가람",	"010-1111-2222", "02-666-7890", "kr.sin@google.com", "친구", "서울특별시 용산구", "친구", '1990-05-01'),
+("주대훈",	"010-1212-1212", "031-111-3333", "dh.joo@google.com", "친구", "경기 수원시 영통구", "친구", '1990-06-01'),
+("이신형",	"010-9876-5432", "031-456-6666", "sh.lee@naver.com", "친구", "경기 수원시 팔달구", "친구", '1990-07-01'),
+("김성주",	"010-7777-8888", "031-789-4545", "sh.yeoum@hanmail.net", "애인님", "경기 수원시 권선구", "여왕폐하", '1992-01-01'),
+("성실해",	"010-2222-3333", "061-777-1212", "wm.jee@naver.com", "회사", "전남 여수시 주삼동", "대리", '1992-03-01'),
+("하지훈",	"010-5678-9999", "02-333-1234", "jh.ha@google.com", "회사", "서울특별시 중구", "과장님", '1987-05-03'),
+("하동영",	"010-7890-1111", "02-321-4321", "jh.song@hanmail.net", "회사", "서울특별시 관악구", "사원", '1995-09-01'),
+("김수안",	"010-1230-4444", "02-456-1234", "sa.kim@naver.com", "회사", "서울특별시 동대문구", "팀장님", '1984-12-01');
+SELECT * FROM CONTACTS;
+SELECT *
+  FROM CONTACTS,        'asdkfj',
+ WHERE 
+       PHONE1 LIKE '%3%'
+    OR PHONE2 LIKE '%3%';
+SELECT *
+  FROM CONTACTS
+ WHERE 
+       PHONE1  LIKE '%5%'
+    OR PHONE2  LIKE '%5%'
+   AND ADDRESS LIKE '%서울%';
+SELECT *
+  FROM CONTACTS
+ WHERE
+       PHONE1 LIKE '%2%'
+    OR PHONE2 LIKE '%2%';
+UPDATE CONTACTS
+   SET
+       Name = '홍길동'
+ WHERE
+       PHONE1 LIKE '%2%'
+    OR PHONE2 LIKE '%2%';
+SELECT *
+  FROM CONTACTS
+ WHERE
+       PHONE1 LIKE '%2%'
+    OR PHONE2 LIKE '%2%';
+SELECT *
+  FROM CONTACTS
+ WHERE
+       NAME = "홍길동";
+UPDATE CONTACTS
+   SET
+       NAME = "김철수"
+WHERE
+       NAME = "홍길동";
+SELECT *
+  FROM CONTACTS
+ WHERE
+       NAME = "홍길동";
+SELECT *
+  FROM CONTACTS
+ WHERE
+       NAME = "김철수";
+
+ALTER TABLE contact_app ADD relation VARCHAR(100) DEFAULT ' ' NOT NULL;

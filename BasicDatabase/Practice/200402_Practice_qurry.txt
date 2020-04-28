@@ -1,0 +1,145 @@
+/*SHOW DATABASES;
+CREATE DATABASE practice;
+USE practice;*/
+
+# 실습1번 가계부
+CREATE TABLE household_ledger (
+No INT AUTO_INCREMENT PRIMARY KEY,
+날짜 CHAR(20),
+항목 CHAR(30) DEFAULT ' ' NOT NULL,
+품목명 CHAR(100) DEFAULT ' ' NOT NULL,
+가격 INT(40)
+);
+DESCRIBE household_ledger;
+ALTER TABLE household_ledger 
+RENAME COLUMN No TO `Index`;
+DESCRIBE household_ledger;
+ALTER TABLE household_ledger 
+CHANGE 항목 
+       Category INT(10);
+DESCRIBE household_ledger;
+ALTER TABLE household_ledger
+  ADD COLUMN 수량 INT 
+AFTER Category;
+DESCRIBE household_ledger;
+ALTER TABLE household_ledger
+  ADD COLUMN 비고 CHAR(20) 
+AFTER 가격;
+DESCRIBE household_ledger;
+ALTER TABLE household_ledger
+RENAME   AS mymoney;
+DESCRIBE mymoney;
+
+# 실습2번 즐겨찾기
+CREATE TABLE favorite_number (
+No INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+이름 CHAR(20),
+전화번호 CHAR(20)
+);
+EXPLAIN favorite_number;
+INSERT INTO favorite_number
+(이름, 전화번호)
+VALUES
+("김민찬",	"010-2345-6789"),
+("김영주",	"010-1234-5555"),
+("신가람",	"010-1111-2222"),
+("주대훈",	"010-1212-1212"),
+("이신형",	"010-9876-5432");
+SELECT * FROM favorite_number;
+
+# 실습3번 물품 가격 정리 테이블 구축
+CREATE TABLE item_price (
+  No     INT         AUTO_INCREMENT NOT NULL PRIMARY KEY
+, Name CHAR(30) NOT NULL
+, Price   INT(20)    NOT NULL
+);
+EXPLAIN item_price;
+INSERT INTO item_price
+(Name, Price)
+VALUES
+("lApTop", 1100000),
+("mONiTor", 250000),
+("dEsKtoP", 800000),
+("kEyBoarD", 120000),
+("mOuSE", 150000);
+SELECT * FROM item_price;
+INSERT INTO item_price
+(Name, Price)
+VALUES
+("laptop", 1100000),
+("monitor", 250000),
+("desktop", 800000),
+("keyboard", 120000),
+("mouse", 150000);
+SELECT * FROM item_price;
+/* Name Column의 레코드 중
+   대문자가 존재하는 경우
+   해당 레코드 전체 조회*/
+SELECT *
+  FROM item_price
+ WHERE 
+       BINARY(Name) REGEXP '[A-Z]\D*';
+-- REGEXP: 정규표현식 형태로 패턴매칭해주는 함수
+
+/* Name Column의 레코드 중
+   대문자가 존재하지 않는 경우
+   해당 레코드 전체 조회*/
+SELECT *
+  FROM item_price
+ WHERE 
+       BINARY(Name) NOT REGEXP '[A-Z]\D*';
+
+# 4번 복습과제
+CREATE TABLE IF NOT EXISTS member_list(
+  No INT AUTO_INCREMENT NOT NULL PRIMARY KEY
+, Name CHAR(30)
+, Phone CHAR(15)
+, Birthday DATE
+, Gender CHAR(10)
+, Email VARCHAR(100)
+, Address VARCHAR(255)
+);
+DESCRIBE member_list;
+INSERT INTO member_list
+(Name, Phone, Birthday, Gender, Email, Address)
+VALUES
+("Joshua Graham", "010-2345-6789", '1991-09-23', "Male", "Graham.J@naver.com", "서울특별시 종로구"),
+("Mariah Carey", "010-1234-5555", '1990-04-01', "Female", "Carey.M@naver.com", "서울특별시 광진구"),
+("Katheryn Elizabeth", "010-1111-2222", '1990-05-01', "Female", "Elizabeth.K@naver.com", "서울특별시 용산구"),
+("Nikola Tesla", "010-1212-1212", '1990-06-01', "Male", "Tesla.N@naver.com", "경기 수원시 영통구"),
+("Marie Curie", "010-9876-5432", '1990-07-01', "Female", "Curie.M@naver.com", "경기 수원시 팔달구");
+SELECT * FROM member_list;
+INSERT INTO member_list
+(Name, Phone, Birthday, Gender, Email, Address)
+VALUES
+("joshua graham", "010-2345-6789", '1991-09-23', "Male", "graham.j@naver.com", "서울특별시 종로구"),
+("mariah carey", "010-1234-5555", '1990-04-01', "Female", "carey.m@naver.com", "서울특별시 광진구"),
+("katheryn elizabeth", "010-1111-2222", '1990-05-01', "Female", "elizabeth.k@naver.com", "서울특별시 용산구"),
+("nikola tesla", "010-1212-1212", '1990-06-01', "Male", "tesla.n@naver.com", "경기 수원시 영통구"),
+("marie curie", "010-9876-5432", '1990-07-01', "Female", "curie.m@naver.com", "경기 수원시 팔달구");
+SELECT * FROM member_list;
+/* Name Column의 레코드 중
+   대문자가 존재하는 경우
+   해당 레코드 전체 조회*/
+SELECT *
+  FROM member_list
+ WHERE 
+       BINARY(Name) REGEXP '[A-Z]\D*';
+/* Name Column의 레코드 중
+   대문자가 존재하지 않는 경우
+   해당 레코드 전체 조회*/
+SELECT *
+  FROM member_list
+ WHERE 
+       BINARY(Name) NOT REGEXP '[A-Z]\D*';
+ALTER TABLE member_list 
+ ADD COLUMN etc CHAR(20) DEFAULT ' ' NOT NULL
+      AFTER Address;
+DESCRIBE member_list;
+SELECT * FROM member_list;
+
+
+
+레코드의 원본 문자열(A)를 2개 복사해서 B, C로 담아두고 B는 모두 소문자로 C 모두 대문자로로 변환하고 원본 레코드 문자랑 비교해서 A와 B가 같으면 모두 소문자인 경우고  A와 B가 같지 않으며 A와 C를 비교해서 같지 않으면 대소문자가 섞여 있는 경우인것 같습니다.
+대소문자로 변경하는 방법은 아래 링크 참조 하시고요~
+https://m.blog.naver.com/PostView.nhn?blogId=diceworld&logNo=220161948197&proxyReferer=https%3A%2F%2Fwww.google.com%2F

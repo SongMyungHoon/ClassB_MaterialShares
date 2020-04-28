@@ -1,0 +1,53 @@
+# 1. 데이터 모델링의 정의와 예를 설명하시오. (본인의 생각대로 정리할 것, 웹서핑 등으로 인터넷에 있는 내용이면 0점 처리) *
+ 데이터란 사실 또는 자료이며 데이터 베이스는 이러한 데이터들이 일정한 규칙이나 논리적인 체계에 의해 정리된 데이터들의 집합, 즉 사실과 자료들의 집합이다.
+ 데이터 모델링이란 위에서 정의한 현실 세계에서의 데이터들을 가지고 데이터 베이스를 만들기 위해, 일정한 규칙들과 논리적인 체계로 데이터들을 정리하여 표현하는 행동 또는 작업을 의미하며 데이터로 데이터베이스를 만들기 위한 일종의 전처리 과정이라고 할 수 있다.
+ 가계부를 정리하는 것이 데이터 모델링의 대표적인 예이다. 수 많은 영수증들은 구매 또는 소비 사실을 증명하는 자료들이며, 데이터이다. 이 데이터들을 시간별, 종류별, 가격별 등 일정한 규칙 또는 논리적인 체계로 가계부에 표와 문자 형태로 정리하는 작업이 가계부 정리이며, 이는 실생활에서 접할 수 있는 데이터 모델링 작업이라고 할 수 있다.
+
+# 2. 아래 그림의 두 번째 쿼리에서 오류가 발생하였다. 원인을 설명하고 수정한 쿼리를 작성하시오. *
+etc column에 들어가는 데이터 none에 따옴표가 빠져있다.
+
+수정된 쿼리
+insert into test_eng values(
+1, 'choose the ...', 'none'
+);
+
+# 3. 아래 테이블에서 number 필드(char)에 '5'가 포함된 레코드를 출력하는 쿼리를 작성하시오. *
+select * from member_list
+where number like '%5%';
+
+# 4. 어떤 char 형 필드에서 'yEs'라는 문자열(대소문자 구분)이 포함된 레코드를 출력하는 쿼리를 작성하시오.(Table 명 및 Column 명 임의 설정) *
+select * from test_tbl
+where binary(contents) = "yEs";
+
+where binary(itemname) like "%yEs%"
+
+# 5. 아래 테이블에서 category 필드의 자료형을 char(30)으로 바꾸는 쿼리를 작성하시오. *
+alter table money modify category char(30);
+
+# 6. 아래 테이블에서 num이 1012345678인 레코드의 id를 9로 변경하는 쿼리를 작성하시오.(Table 명 임의 설정, id 및 num의 data type은 int) *
+update contacts
+   set id = 9
+ where
+   num = 1012345678;
+
+# 7. 아래 테이블 구조를 보고, 중간에 있는 쿼리와 같은 동작을 하도록 새로운 쿼리를 작성하시오.(Hint. where 조건 수정) *
+select * from num
+ where id = 7
+    or id = 8
+    or id = 10
+    or id = 11;
+
+# 8. 아래와 같은 테이블을 구성하기 위한 쿼리를 작성하시오. *
+create table student_table(
+  id int auto_increment not null primary key
+, name char(20)
+, etc char(10)
+);
+
+# 9. 아래 테이블의 name이 'kim'인 레코드에 대하여 etc의 내용을 'NA'로 변경하는 쿼리를 작성하시오.(Table 명 임의 설정) *
+update test_tbl
+   set etc = "NA"
+ where name = "kim";
+
+# 10. 아래 쿼리에서 오류가 발생한 원인을 설명하고 이를 해결할 수 있는 쿼리를 작성하시오. *
+create database `select`;

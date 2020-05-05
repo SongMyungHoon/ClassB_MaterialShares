@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class C061 {
+    public static List<Integer> resultSum(List<Integer> listA, List<Integer> listB) {
+        List<Integer> resultSum = new ArrayList<>();
+        for (int i = 0; i < listA.size(); i++) {            // aLength == bLength always
+            resultSum.add(listA.get(i) + listB.get(i));     // 올림을 무시하므로 큰 자리수부터 계산해도 무방
+            if ((resultSum.get(i) / 10) == 1) {             // 덧셈 결과 올림이 존재하면
+                resultSum.set(i, resultSum.get(i) % 10);    // i 자리에 올림을 제외한 나머지만 덮어씌운다
+            }                                               // (올림을 무시)
+        }
+        return resultSum;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String a = sc.next();   // 98
+        String b = sc.next();   // 75
+
+        String[] strArrayA = a.split("");   // 98 -> 9 , 8
+        String[] strArrayB = b.split("");   // 75 -> 7 , 5
+        int aLength = strArrayA.length;
+        int bLength = strArrayB.length;
+
+        String compareLength = "a>b";   // aLength > bLength
+        int diffLength = Math.abs(aLength - bLength);
+        if (aLength < bLength) {    // aLength < bLength
+            compareLength = "a<b";
+        }
+
+        List<Integer> intListA = new ArrayList<>();
+        List<Integer> intListB = new ArrayList<>();
+        if (compareLength.equals("a>b")) {
+            // diffLength >= 1 이다
+            for (int i = 0; i < diffLength; i++) {  // if diffLength == 1
+                intListB.add(0);                    // for문은 i == 0인 경우 1바퀴 돈다
+            }                                       // Length 차이만큼 앞 자리에 0을 넣는다.
+        } else if (compareLength.equals("a<b")) {
+            for (int i = 0; i < diffLength; i++) {
+                intListA.add(0);
+            }
+        }
+        for (String s : strArrayA) {
+            intListA.add(Integer.parseInt(s));      // 문자열 배열에 들어있는 각 문자형 숫자 하나씩을
+        }                                           // int형으로 형변환해 리스트에 순차적으로 더해준다
+        for (String s : strArrayB) {
+            intListB.add(Integer.parseInt(s));
+        }
+        // 올림 무시 덧셈 메서드 수행
+        List<Integer> resultSum = resultSum(intListA, intListB);
+
+        for (int i = 0; i < resultSum.size(); i++) {
+            System.out.print(resultSum.get(i));
+        }
+    }
+}
